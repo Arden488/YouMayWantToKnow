@@ -2,7 +2,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 
 import Favorites from './components/Favorites';
-import SearchBar from './components/SearchBar';
+import SearchBar from './containers/SearchBar';
 import WikiBox from './components/WikiBox';
 import ArticlesBox from './components/ArticlesBox';
 import VideoBox from './components/VideoBox';
