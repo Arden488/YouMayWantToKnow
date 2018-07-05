@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchBar /> renders correctly 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <WithStyles(Grid)
+      alignItems="baseline"
+      className="Connect-SearchBar--root-1"
+      container={true}
+      spacing={8}
+    >
+      <WithStyles(Grid)
+        className="Connect-SearchBar--input-2"
+        item={true}
+      >
+        <TextField
+          fullWidth={true}
+          label="Search for something"
+          margin="normal"
+          onChange={[Function]}
+          placeholder="Something like... World Cup 2018"
+          required={false}
+          select={false}
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+      >
+        <WithStyles(Button)
+          aria-label="search"
+          color="primary"
+          mini={true}
+          type="submit"
+          variant="fab"
+        >
+          <pure(Search) />
+        </WithStyles(Button)>
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </form>
+</div>
+`;
