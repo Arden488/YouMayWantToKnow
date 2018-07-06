@@ -20,16 +20,25 @@ class WikiBox extends Component {
     
     const title = pageData.title;
     const text = pageData.extract;
+    let image;
     const imageSrc = pageData.thumbnail ? pageData.thumbnail.source : '';
     const url = `http://en.wikipedia.org/wiki?curid=${firstPageId}`;
+    let textGridSize = 12;
+
+    if(imageSrc) {
+      textGridSize = 9;
+      image = (
+        <Grid item xs={3}>
+          <img src={imageSrc} alt={title} width="100%" height="auto" />
+        </Grid>
+      );
+    }
 
     return (
       <div>
         <Grid container spacing={16}>
-          <Grid item xs={3}>
-            <img src={imageSrc} alt={title} width="100%" height="auto" />
-          </Grid>
-          <Grid item xs={9}>
+          {image}
+          <Grid item xs={textGridSize}>
             <p dangerouslySetInnerHTML={{__html: text}}></p>
             <p>
               <a href={url} target="_blank">Read more</a>
