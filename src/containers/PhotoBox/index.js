@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 class PhotoBox extends Component {
   renderPhotos() {
-    if (!this.props.photos[0])
+    if (!this.props.photos[0] || !this.props.photos[0].data.photos)
       return <p>No photos</p>;
 
     return this.props.photos[0].data.photos.photo.map(photo => {
