@@ -10,10 +10,15 @@ class ArticlesBox extends Component {
       return <p>No articles</p>;
     }
 
-    return this.props.articles[0].articles.map((article, i) => {
+    return this.props.articles[0].articles.slice(0,5).map((article, i) => {
+      let image = '';
+      if(article.urlToImage) {
+        image = <img width="150" src={article.urlToImage} alt={article.title} />;
+      }
+      
       return (
-        <ListItem key={article.i}>
-          <img width="150" src={article.urlToImage} alt={article.title} />
+        <ListItem key={article.i+article.title}>
+          {image}
           <ListItemText
             primary={article.title}
             secondary={article.description}
