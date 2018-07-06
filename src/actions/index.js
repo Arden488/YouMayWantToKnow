@@ -8,6 +8,10 @@ export function fetchData(query) {
       dispatch(fetchWiki(query)),
       dispatch(fetchFlickr(query)),
       dispatch(fetchNews(query)),
+      dispatch({
+        type: 'SET_QUERY',
+        payload: query,
+      }),
     ]).then(() => {
       // ...
     });

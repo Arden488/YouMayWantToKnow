@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -10,62 +11,87 @@ import WikiBox from './containers/WikiBox';
 import ArticlesBox from './containers/ArticlesBox';
 import VideoBox from './containers/VideoBox';
 import PhotoBox from './containers/PhotoBox';
-import Paper from '@material-ui/core/Paper';
 
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   control: {
     padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
+  },
+  headingBox: {
+    marginBottom: 60,
   }
 });
 
-const App = (props) => {
-  const { classes } = props;
+class App extends Component {
+  render() {
+    const { classes } = this.props;
+    let heading = '';
 
-  return (
-    <div>
-      <Grid container spacing={8}>
-        <Grid item xs={12}>
-          <Favorites />
+    if(this.props.query) {
+      heading = (
+        <Grid item xs={12} className={classes.headingBox}>
+          <Typography 
+            variant="display1"
+            align="center"
+          >Search results for "{this.props.query}"</Typography>
         </Grid>
-        <Grid item xs={12}>
-          <SearchBar />
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={8}>
-            <Grid item xs={6}>
-              <Paper className={classes.control}>
-                <WikiBox />
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.control}>
-                <ArticlesBox />
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.control}>
-                <VideoBox />
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.control}>
-                <PhotoBox />
-              </Paper>
+      );
+    }
+
+    return (
+      <div>
+        <Grid container spacing={8}>
+          <Grid item xs={12}>
+            <Favorites />
+          </Grid>
+          <Grid item xs={12}>
+            <SearchBar />
+          </Grid>
+          {heading}
+          <Grid item xs={12}>
+            <Grid container spacing={8}>
+              <Grid item xs={6}>
+                <div className={classes.control}>
+                  <WikiBox />
+                </div>
+                <Divider />
+                <div className={classes.control}>
+                  <VideoBox />
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.control}>
+                  <ArticlesBox />
+                </div>
+                <Divider />
+                <div className={classes.control}>
+                  <PhotoBox />
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
+function mapStateToProps(state) {
+  return {
+    query: state.query,
+  }
+}
+
 export default compose(
   withStyles(styles),
+  connect(mapStateToProps),
   hot(module),
 )(App);
