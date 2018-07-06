@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VideoBox /> loads video 1`] = `
+<div>
+  <WithStyles(Grid)
+    container={true}
+    spacing={24}
+  >
+    <WithStyles(Grid)
+      item={true}
+      xs={6}
+    >
+      <iframe
+        allow="autoplay; encrypted-media"
+        allowFullScreen={true}
+        frameBorder="0"
+        height="300"
+        src="https://www.youtube.com/embed/undefined"
+        width="100%"
+      />
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+      xs={6}
+    />
+  </WithStyles(Grid)>
+</div>
+`;
+
+exports[`<VideoBox /> renders correctly 1`] = `
+<div>
+  <WithStyles(Grid)
+    container={true}
+    spacing={24}
+  >
+    <WithStyles(Grid)
+      item={true}
+      xs={6}
+    >
+      <p>
+        No video
+      </p>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+      xs={6}
+    />
+  </WithStyles(Grid)>
+</div>
+`;
