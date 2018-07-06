@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
-    margin: '50px auto 100px',
+    margin: '50px auto 50px',
     [theme.breakpoints.up('lg')]: {
       width: 1170,
     },
