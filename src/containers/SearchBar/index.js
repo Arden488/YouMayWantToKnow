@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 // import { compose } from 'recompose';
 
-import { fetchYoutube } from '../../actions';
+import { fetchData } from '../../actions';
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -73,7 +73,9 @@ class SearchBar extends Component {
 
   handleSearchSubmit(event) {
     event.preventDefault();
-    this.props.fetchYoutube(this.state.value);
+
+    if(this.state.value != '')
+      this.props.fetchData(this.state.value);
   }
 }
 
@@ -82,14 +84,12 @@ SearchBar.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {
-    videos: state.videos,
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return { 
-    fetchYoutube: (query) => dispatch(fetchYoutube(query)),
+    fetchData: (query) => dispatch(fetchData(query)),
   };
 }
 
