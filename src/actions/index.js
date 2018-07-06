@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { YOUTUBE_API_KEY, FLICKR_API_KEY } from '../config/api';
+import { YOUTUBE_API_KEY, FLICKR_API_KEY, NEWS_API_KEY } from '../config/api';
 
 export function fetchData(query) {
   return (dispatch) => {
@@ -7,16 +7,32 @@ export function fetchData(query) {
       dispatch(fetchYoutube(query)),
       dispatch(fetchWiki(query)),
       dispatch(fetchFlickr(query)),
+      dispatch(fetchNews(query)),
     ]).then(() => {
       // ...
     });
   }
 }
 
+export function fetchNews(query) {
+  const url = `https://newsapi.org/v2/everything?q=${query}&sortBy=popularity&apiKey=${NEWS_API_KEY}`;
+  const request = axios.get(url);
+
+  return (dispatch) => {
+    request
+      .then(response => {
+        dispatch({
+          type: 'FETCH_ARTICLES',
+          payload: response,
+        });
+      })
+      .catch((err) => console.log('Error: ', err));
+  };
+}
+
 export function fetchFlickr(query) {
   const url = `https://api.flickr.com/services/rest/?api_key=${FLICKR_API_KEY}&method=flickr.photos.search&format=json&nojsoncallback=1&&per_page=9&page=1&text=${query}`;
-  const request = axios
-    .get(url);
+  const request = axios.get(url);
 
   return (dispatch) => {
     request
