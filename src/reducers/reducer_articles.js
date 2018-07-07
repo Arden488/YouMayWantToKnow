@@ -1,7 +1,16 @@
-export default function(state = {}, action) {
+export default function(state = { loading: false }, action) {
   switch(action.type) {
-    case 'FETCH_ARTICLES':
-      return [ action.payload.data, ...state ];
+    case 'ARTICLES_FETCHING':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ARTICLES_RECEIVED':
+      return {
+        ...state,
+        data: action.payload.data, 
+        loading: false
+      };
   }
 
   return state;

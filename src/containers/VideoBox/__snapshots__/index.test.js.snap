@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<VideoBox /> loads video 1`] = `
-<div>
+<div
+  hidden=""
+>
   <WithStyles(Grid)
     container={true}
     spacing={24}
@@ -28,23 +30,39 @@ exports[`<VideoBox /> loads video 1`] = `
 `;
 
 exports[`<VideoBox /> renders correctly 1`] = `
-<div>
-  <WithStyles(Grid)
-    container={true}
-    spacing={24}
-  >
-    <WithStyles(Grid)
-      item={true}
-      xs={6}
-    >
-      <p>
-        No video
-      </p>
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      item={true}
-      xs={6}
-    />
-  </WithStyles(Grid)>
-</div>
+<VideoBox
+  dispatch={[Function]}
+  loading={false}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+/>
 `;

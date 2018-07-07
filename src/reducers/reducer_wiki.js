@@ -1,7 +1,17 @@
-export default function(state = {}, action) {
+export default function(state = { loading: false }, action) {
+  console.log(action);
   switch(action.type) {
-    case 'FETCH_WIKI':
-      return action.payload
+    case 'WIKI_FETCHING':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'WIKI_RECEIVED':
+      return {
+        ...state,
+        data: action.payload, 
+        loading: false
+      };
   }
 
   return state;

@@ -7,12 +7,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class VideoBox extends Component {
   renderFirstVideo() {
-    if (!this.props.videos || this.props.videos.length < 1)
-      return <p>No video</p>;
-
     const videoId = this.props.videos[0].id.videoId;
     const url = `https://www.youtube.com/embed/${videoId}`;
 
@@ -48,8 +46,14 @@ class VideoBox extends Component {
   }
 
   render() {
+    if(this.props.loading)
+      return <CircularProgress />;
+
+    if(!this.props.videos)
+      return false;
+
     return (
-      <div>
+      <div hidden={this.props.loading ? 'hidden' : ''}>
         <Grid container spacing={24}>
           <Grid item xs={6}>
             {this.renderFirstVideo()}
@@ -65,7 +69,8 @@ class VideoBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    videos: state.videos,
+    loading: state.videos.loading,
+    videos: state.videos.data,
   }
 }
 

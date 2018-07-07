@@ -8,7 +8,7 @@ describe('<WikiBox />', () => {
 
   beforeAll(() => {
     const mockStore = configureStore();
-    store = mockStore({});
+    store = mockStore({ wikiData: { loading: false } });
     component = shallow(<WikiBox store={store} />);
   })
 

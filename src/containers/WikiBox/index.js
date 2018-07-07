@@ -5,14 +5,19 @@ import { connect } from 'react-redux';
 import { fetchWiki } from '../../actions';
 
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class WikiBox extends Component {
+  
   render() {
-    const data = this.props.wikiData.data;
+    if(this.props.loading)
+      return <CircularProgress />;
 
-    if(!data) {
-      return 'No wiki info';
-    }
+    if(!this.props.wikiData)
+      return false;
+
+    const data = this.props.wikiData.data;
 
     const pages = data.query.pages;
     const firstPageId = Object.keys(pages)[0];
@@ -35,7 +40,7 @@ class WikiBox extends Component {
     }
 
     return (
-      <div>
+      <div hidden={this.props.loading ? 'hidden' : ''}>
         <Grid container spacing={16}>
           {image}
           <Grid item xs={textGridSize}>
@@ -45,6 +50,7 @@ class WikiBox extends Component {
             </p>
           </Grid>
         </Grid>
+        <Divider />
       </div>
     );
   }
@@ -52,7 +58,8 @@ class WikiBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    wikiData: state.wikiData,
+    loading: state.wikiData.loading,
+    wikiData: state.wikiData.data,
   }
 }
 

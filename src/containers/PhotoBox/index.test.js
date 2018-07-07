@@ -8,7 +8,12 @@ describe('<PhotoBox />', () => {
 
   beforeAll(() => {
     const mockStore = configureStore();
-    store = mockStore({});
+    store = mockStore({ 
+      photos: { 
+        loading: false,
+        data: {}
+      }
+    });
     component = shallow(<PhotoBox store={store} />);
   })
 

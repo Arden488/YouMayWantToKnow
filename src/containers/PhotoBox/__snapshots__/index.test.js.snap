@@ -3,6 +3,8 @@
 exports[`<PhotoBox /> renders correctly 1`] = `
 <PhotoBox
   dispatch={[Function]}
+  loading={false}
+  photos={Object {}}
   store={
     Object {
       "clearActions": [Function],

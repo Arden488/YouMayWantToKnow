@@ -3,6 +3,7 @@
 exports[`<WikiBox /> renders correctly 1`] = `
 <WikiBox
   fetchWiki={[Function]}
+  loading={false}
   store={
     Object {
       "clearActions": [Function],

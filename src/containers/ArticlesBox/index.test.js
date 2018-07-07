@@ -8,7 +8,12 @@ describe('<ArticlesBox />', () => {
 
   beforeAll(() => {
     const mockStore = configureStore();
-    store = mockStore({});
+    store = mockStore({ 
+      articles: { 
+        loading: false,
+        data: {}
+      } 
+    });
     component = shallow(<ArticlesBox store={store} />);
   })
 

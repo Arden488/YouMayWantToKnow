@@ -13,17 +13,24 @@ describe('<VideoBox />', () => {
   beforeAll(() => {
     const middlewares = [ thunk ];
     mockStore = configureStore(middlewares);
-    store = mockStore({});
+    store = mockStore({ 
+      videos: { 
+        loading: false,
+      } 
+    });
     component = shallow(<VideoBox store={store} />);
   })
 
   it('renders correctly', () => {
-    expect(component.dive()).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 
   it('loads video', () => {
     store = mockStore({
-      videos: [{ 'id': 'RS7IzU2VJIQ' }]
+      videos: { 
+        loading: false,
+        data: [{ 'id': 'RS7IzU2VJIQ' }]
+      } 
     });
     component = shallow(<VideoBox store={store} />);
 
