@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Favorites
+  classes={
+    Object {
+      "chip": "Favorites-chip-1",
+    }
+  }
+/>
+`;
