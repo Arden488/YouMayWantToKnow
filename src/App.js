@@ -14,10 +14,11 @@ import PhotoBox from './containers/PhotoBox';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Fade from '@material-ui/core/Fade';
 
 const styles = theme => ({
   control: {
-    padding: theme.spacing.unit * 2,
+    padding: 0,
     margin: theme.spacing.unit * 2,
   },
   headingBox: {
@@ -29,6 +30,10 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     let heading = '';
+    let searchStyles = {
+      marginTop: 200,
+      transition: 'all .5s',
+    };
 
     if(this.props.query) {
       heading = (
@@ -39,6 +44,11 @@ class App extends Component {
           >Search results for "{this.props.query}"</Typography>
         </Grid>
       );
+
+      searchStyles = {
+        ...searchStyles,
+        marginTop: 0,
+      };
     }
 
     return (
@@ -47,30 +57,35 @@ class App extends Component {
           <Grid item xs={12}>
             <Favorites />
           </Grid>
-          <Grid item xs={12}>
+          <Grid style={searchStyles} item xs={12}>
             <SearchBar />
           </Grid>
-          {heading}
-          <Grid item xs={12}>
-            <Grid container spacing={8}>
-              <Grid item xs={6}>
-                <div className={classes.control}>
-                  <WikiBox />
-                </div>
-                <div className={classes.control}>
-                  <VideoBox />
-                </div>
+          
+          <Fade in={!!this.props.query} timeout={2000}>
+            <div style={{ width: '100%' }}>
+              {heading}
+              <Grid item xs={12}>
+                <Grid container spacing={8}>
+                  <Grid item xs={12} md={6}>
+                    <div className={classes.control}>
+                      <WikiBox />
+                    </div>
+                    <div className={classes.control}>
+                      <VideoBox />
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <div className={classes.control}>
+                      <ArticlesBox />
+                    </div>
+                    <div className={classes.control}>
+                      <PhotoBox />
+                    </div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <div className={classes.control}>
-                  <ArticlesBox />
-                </div>
-                <div className={classes.control}>
-                  <PhotoBox />
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
+            </div>
+          </Fade>
         </Grid>
       </div>
     );
