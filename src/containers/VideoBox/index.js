@@ -8,11 +8,28 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Zoom from '@material-ui/core/Zoom';
 
 class VideoBox extends Component {
-  renderFirstVideo() {
-    const videoId = this.props.videos[0].id.videoId;
-    const url = `https://www.youtube.com/embed/${videoId}`;
+  state = {
+    initialLoad: false,
+    currentVideoId: null,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentVideoId !== this.props.currentVideoId) {
+      this.setState({ currentVideoId: nextProps.currentVideoId });
+    }
+
+    if(nextProps.videos) {
+      setTimeout(() => {
+        this.setState({ initialLoad: true });
+      }, 500);
+    }
+  }
+
+  renderCurrentVideo() {
+    const url = `https://www.youtube.com/embed/${this.state.currentVideoId}`;
 
     return <iframe src={url} width="100%" height="300" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>;
   }
@@ -28,12 +45,15 @@ class VideoBox extends Component {
     )
   }
 
-  generateListItem(data, element) {
-    // delete data[Object.keys(data)[0]];
-    // delete data[Object.keys(data)[data.length-1]];
-    
+  handleChangeVideo(e) {
+    this.setState({
+      currentVideoId: e.id.videoId,
+    })
+  }
+
+  generateListItem(data, element) {    
     return data.slice(1,4).map(value =>
-      <ListItem key={value.id.videoId} button>
+      <ListItem dense onClick={() => this.handleChangeVideo(value)} key={value.id.videoId} button>
         <img
           alt={value.snippet.title}
           src={value.snippet.thumbnails.default.url}
@@ -53,22 +73,25 @@ class VideoBox extends Component {
       return false;
 
     return (
-      <div hidden={this.props.loading ? 'hidden' : ''}>
-        <Grid container spacing={24}>
-          <Grid item xs={6}>
-            {this.renderFirstVideo()}
+      <Zoom in={this.state.initialLoad}>
+        <div>
+          <Grid container spacing={24}>
+            <Grid item xs={6}>
+              {this.renderCurrentVideo()}
+            </Grid>
+            <Grid item xs={6}>
+              {this.renderOtherVideos()}
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            {this.renderOtherVideos()}
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      </Zoom>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
+    currentVideoId: state.videos.currentVideoId,
     loading: state.videos.loading,
     videos: state.videos.data,
   }

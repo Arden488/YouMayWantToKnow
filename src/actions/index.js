@@ -27,12 +27,10 @@ export function fetchEach(name, url) {
 
     request
       .then(response => {
-        setTimeout(() => {
-          dispatch({
-            type: `${name}_RECEIVED`,
-            payload: response,
-          });
-        }, 500);
+        dispatch({
+          type: `${name}_RECEIVED`,
+          payload: response,
+        });
       })
       .catch((err) => console.log('Error: ', err));
   };

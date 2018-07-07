@@ -8,6 +8,7 @@ export default function(state = { loading: false }, action) {
     case 'YOUTUBE_RECEIVED':
       return {
         ...state,
+        currentVideoId: action.payload.data.items[0].id.videoId,
         data: action.payload.data.items, 
         loading: false
       };

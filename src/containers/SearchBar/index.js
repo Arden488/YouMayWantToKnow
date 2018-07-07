@@ -28,9 +28,19 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      value: ''
+    }
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.query,
+    })
+  } 
 
   render() {
     const { classes } = this.props;
@@ -45,6 +55,7 @@ class SearchBar extends Component {
                 placeholder="Something like... World Cup 2018"
                 fullWidth
                 margin="normal"
+                value={this.state.value}
                 onChange={this.handleInputChange}
               />
             </Grid>
@@ -84,7 +95,9 @@ SearchBar.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    query: state.query,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -5,8 +5,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Zoom from '@material-ui/core/Zoom';
 
 class ArticlesBox extends Component {
+  state = {
+    initialLoad: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.articles) {
+      setTimeout(() => {
+        this.setState({ initialLoad: true });
+      }, 500);
+    }
+  }
+
   renderArticles() {
     return this.props.articles.articles.slice(0,5).map((article, i) => {
       let image = '';
@@ -15,7 +28,14 @@ class ArticlesBox extends Component {
       }
       
       return (
-        <ListItem key={article.i+article.title}>
+        <ListItem 
+          dense 
+          button
+          component="a"
+          href={article.url}
+          target="_blank"
+          key={article.i+article.title}
+        >
           {image}
           <ListItemText
             primary={article.title}
@@ -34,10 +54,12 @@ class ArticlesBox extends Component {
       return false;
       
     return (
-      <div hidden={this.props.loading ? 'hidden' : ''}>
-        {this.renderArticles()}
-        <Divider />
-      </div>
+      <Zoom in={this.state.initialLoad}>
+        <div>
+          {this.renderArticles()}
+          <Divider />
+        </div>
+      </Zoom>
     );
   }
 }

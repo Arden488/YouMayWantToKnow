@@ -5,8 +5,21 @@ import { compose } from 'redux';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Zoom from '@material-ui/core/Zoom';
 
 class PhotoBox extends Component {
+  state = {
+    initialLoad: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.photos) {
+      setTimeout(() => {
+        this.setState({ initialLoad: true });
+      }, 500);
+    }
+  }
+
   renderPhotos() {
     return this.props.photos.data.photos.photo.map(photo => {
       const source = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
@@ -24,11 +37,13 @@ class PhotoBox extends Component {
       return false;
 
     return (
-      <div hidden={this.props.loading ? 'hidden' : ''}>
-        <GridList cellHeight={200} cols={3}>
-          {this.renderPhotos()}
-        </GridList>
-      </div>
+      <Zoom in={this.state.initialLoad}>
+        <div>
+          <GridList cellHeight={200} cols={3}>
+            {this.renderPhotos()}
+          </GridList>
+        </div>
+      </Zoom>
     );
   }
 }

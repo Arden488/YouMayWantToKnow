@@ -1,5 +1,4 @@
 export default function(state = { loading: false }, action) {
-  console.log(action);
   switch(action.type) {
     case 'WIKI_FETCHING':
       return {
