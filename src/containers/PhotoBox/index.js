@@ -37,7 +37,7 @@ class PhotoBox extends Component {
       return false;
 
     return (
-      <Zoom in={this.state.initialLoad}>
+      <Zoom in={this.state.initialLoad} timeout={500}>
         <div>
           <GridList cellHeight={200} cols={3}>
             {this.renderPhotos()}

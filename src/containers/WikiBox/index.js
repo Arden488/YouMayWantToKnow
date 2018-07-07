@@ -65,7 +65,7 @@ class WikiBox extends Component {
     }
 
     return (
-      <Zoom in={this.state.initialLoad}>
+      <Zoom in={this.state.initialLoad} timeout={500}>
         <div>
           <div className={classes.root}>
             <Grid container spacing={16}>

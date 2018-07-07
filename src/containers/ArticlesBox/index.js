@@ -54,7 +54,7 @@ class ArticlesBox extends Component {
       return false;
       
     return (
-      <Zoom in={this.state.initialLoad}>
+      <Zoom in={this.state.initialLoad} timeout={500}>
         <div>
           {this.renderArticles()}
           <Divider />

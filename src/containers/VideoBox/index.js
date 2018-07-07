@@ -57,6 +57,7 @@ class VideoBox extends Component {
         <img
           alt={value.snippet.title}
           src={value.snippet.thumbnails.default.url}
+          style={{ width: '30%' }}
         />
         <ListItemText
           primary={value.snippet.title}
@@ -73,13 +74,13 @@ class VideoBox extends Component {
       return false;
 
     return (
-      <Zoom in={this.state.initialLoad}>
+      <Zoom in={this.state.initialLoad} timeout={500}>
         <div>
           <Grid container spacing={24}>
-            <Grid item xs={6}>
+            <Grid item xs={12} lg={7} xl={6}>
               {this.renderCurrentVideo()}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} lg={5} xl={6}>
               {this.renderOtherVideos()}
             </Grid>
           </Grid>
