@@ -4,79 +4,35 @@ import { YOUTUBE_API_KEY, FLICKR_API_KEY, NEWS_API_KEY } from '../config/api';
 export function fetchData(query) {
   return (dispatch) => {
     Promise.all([
-      dispatch(fetchYoutube(query)),
-      dispatch(fetchWiki(query)),
-      dispatch(fetchFlickr(query)),
-      dispatch(fetchNews(query)),
+      dispatch(fetchEach('ARTICLES', `https://newsapi.org/v2/everything?q=${query}&sortBy=popularity&apiKey=${NEWS_API_KEY}`)),
+      dispatch(fetchEach('FLICKR', `https://api.flickr.com/services/rest/?api_key=${FLICKR_API_KEY}&method=flickr.photos.search&format=json&nojsoncallback=1&&per_page=9&page=1&text=${query}`)),
+      dispatch(fetchEach('YOUTUBE', `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${query}&type=video&key=${YOUTUBE_API_KEY}`)),
+      dispatch(fetchEach('WIKI', `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|extracts&pithumbsize=300&format=json&origin=*&exintro=&exsentences=5&titles=${query}&redirects`)),
+    ]).then(() => {
       dispatch({
         type: 'SET_QUERY',
         payload: query,
-      }),
-    ]).then(() => {
-      // ...
+      });
     });
   }
 }
 
-export function fetchNews(query) {
-  const url = `https://newsapi.org/v2/everything?q=${query}&sortBy=popularity&apiKey=${NEWS_API_KEY}`;
+export function fetchEach(name, url) {
   const request = axios.get(url);
 
   return (dispatch) => {
+    dispatch({
+      type: `${name}_FETCHING`,
+    });
+
     request
       .then(response => {
-        dispatch({
-          type: 'FETCH_ARTICLES',
-          payload: response,
-        });
-      })
-      .catch((err) => console.log('Error: ', err));
-  };
-}
-
-export function fetchFlickr(query) {
-  const url = `https://api.flickr.com/services/rest/?api_key=${FLICKR_API_KEY}&method=flickr.photos.search&format=json&nojsoncallback=1&&per_page=9&page=1&text=${query}`;
-  const request = axios.get(url);
-
-  return (dispatch) => {
-    request
-      .then(response => {
-        dispatch({
-          type: 'FETCH_FLICKR',
-          payload: response,
-        });
-      })
-      .catch((err) => console.log('Error: ', err));
-  };
-}
-
-export function fetchYoutube(query) {
-  const url = `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${query}&type=video&key=${YOUTUBE_API_KEY}`;
-  const request = axios.get(url);
-
-  return (dispatch) => {
-    request
-      .then(response => {
-        dispatch({
-          type: 'FETCH_YOUTUBE',
-          payload: response,
-        });
-      })
-      .catch((err) => console.log('Error: ', err));
-  };
-}
-
-export function fetchWiki(query) {
-  const url = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|extracts&pithumbsize=300&format=json&origin=*&exintro=&exsentences=5&titles=${query}&redirects`;
-  const request = axios.get(url);
-
-  return (dispatch) => {
-    request
-      .then(response => {
-        dispatch({
-          type: 'FETCH_WIKI',
-          payload: response,
-        });
+        setTimeout(() => {
+          dispatch({
+            type: `${name}_RECEIVED`,
+            payload: response,
+          });
+        }, 500);
       })
       .catch((err) => console.log('Error: ', err));
   };
