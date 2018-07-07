@@ -20,14 +20,39 @@ class Favorites extends Component {
       this.props.fetchData(query);
   }
 
-  render() {
+  renderChips(topics) {
     const { classes } = this.props;
+
+    return topics.map(topic => {
+      return <Chip 
+        className={classes.chip} 
+        onClick={() => this.handleFavoriteClick(topic)} 
+        label={topic} 
+        clickable 
+      />
+    })
+  }
+
+  render() {
+    const topics = [
+      'SpaceX',
+      'World Cup 2018',
+      'Hawking',
+      'Lionel Messi',
+      'Donald Trump',
+      'Christmas',
+      'Yuri Gagarin',
+      'IKEA',
+      'Westworld',
+      'Amazon Alexa',
+      'Ethereum',
+      'GDPR',
+      'Bob Marley',
+    ];
     
     return (
       <div>
-        <Chip className={classes.chip} onClick={() => this.handleFavoriteClick("SpaceX")} label="SpaceX" clickable />
-        <Chip className={classes.chip} onClick={() => this.handleFavoriteClick("World Cup 2018")} label="World Cup 2018" clickable />
-        <Chip className={classes.chip} onClick={() => this.handleFavoriteClick("Hawking")} label="Hawking" clickable />
+        {this.renderChips(topics)}
       </div>
     );
   }
