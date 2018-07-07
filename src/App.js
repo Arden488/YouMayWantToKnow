@@ -12,7 +12,6 @@ import ArticlesBox from './containers/ArticlesBox';
 import VideoBox from './containers/VideoBox';
 import PhotoBox from './containers/PhotoBox';
 
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -58,7 +57,6 @@ class App extends Component {
                 <div className={classes.control}>
                   <WikiBox />
                 </div>
-                <Divider />
                 <div className={classes.control}>
                   <VideoBox />
                 </div>
@@ -67,7 +65,6 @@ class App extends Component {
                 <div className={classes.control}>
                   <ArticlesBox />
                 </div>
-                <Divider />
                 <div className={classes.control}>
                   <PhotoBox />
                 </div>
