@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-import Favorites from './components/Favorites';
+import Favorites from './containers/Favorites';
 import SearchBar from './containers/SearchBar';
 import WikiBox from './containers/WikiBox';
 import ArticlesBox from './containers/ArticlesBox';
