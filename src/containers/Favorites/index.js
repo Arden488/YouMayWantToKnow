@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchData } from '../../actions';
+import { fetchTrends } from '../../actions';
 
 import Chip from '@material-ui/core/Chip';
 
@@ -15,6 +15,10 @@ const styles = theme => ({
 });
 
 class Favorites extends Component {
+  // componentWillMount() {
+  //   this.props.fetchTrends();
+  // }
+
   handleFavoriteClick(query) {
     if(query != this.props.query)
       this.props.fetchData(query);
@@ -25,6 +29,7 @@ class Favorites extends Component {
 
     return topics.map(topic => {
       return <Chip 
+        key={topic}
         className={classes.chip} 
         onClick={() => this.handleFavoriteClick(topic)} 
         label={topic} 
@@ -34,25 +39,12 @@ class Favorites extends Component {
   }
 
   render() {
-    const topics = [
-      'SpaceX',
-      'World Cup 2018',
-      'Hawking',
-      'Lionel Messi',
-      'Donald Trump',
-      'Christmas',
-      'Yuri Gagarin',
-      'IKEA',
-      'Westworld',
-      'Amazon Alexa',
-      'Ethereum',
-      'GDPR',
-      'Bob Marley',
-    ];
-    
+    if (!this.props.trends)
+      return false;
+
     return (
       <div>
-        {this.renderChips(topics)}
+        {this.renderChips(this.props.trends)}
       </div>
     );
   }
@@ -61,12 +53,13 @@ class Favorites extends Component {
 function mapStateToProps(state) {
   return {
     query: state.query,
+    trends: state.trends,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchData: (query) => dispatch(fetchData(query)),
+    fetchTrends: () => dispatch(fetchTrends()),
   }
 }
 

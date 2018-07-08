@@ -1,6 +1,26 @@
 import axios from 'axios';
 import { YOUTUBE_API_KEY, FLICKR_API_KEY, NEWS_API_KEY } from '../config/api';
 
+export function fetchTrends() {
+  const request = axios.get('http://hawttrends.appspot.com/api/terms/');
+  
+  return (dispatch) => {
+    dispatch({
+      type: `TRENDS_FETCHING`,
+    });
+
+    request
+      .then(response => {
+        console.log(response);
+        dispatch({
+          type: `TRENDS_RECEIVED`,
+          payload: response,
+        });
+      })
+      .catch((err) => console.log('Error: ', err));
+  };
+}
+
 export function fetchData(query) {
   return (dispatch) => {
     Promise.all([
